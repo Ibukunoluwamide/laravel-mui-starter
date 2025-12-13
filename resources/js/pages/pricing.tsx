@@ -70,7 +70,7 @@ export default function PricingPage() {
                             <Card
                                 variant="outlined"
                                 sx={{
-                                    borderRadius: 3,
+                                    
                                     height: '100%',
                                     borderColor: plan.highlight
                                         ? 'primary.main'
@@ -135,7 +135,7 @@ export default function PricingPage() {
                 <Box
                     sx={{
                         p: 3,
-                        borderRadius: 3,
+                        
                         border: '1px solid',
                         borderColor: 'divider',
                         bgcolor: 'background.paper',

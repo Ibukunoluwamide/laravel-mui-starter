@@ -23,7 +23,7 @@ export default function UserBilling() {
             <Stack spacing={3}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <Card variant="outlined" sx={{ borderRadius: 3 }}>
+                        <Card variant="outlined" >
                             <CardContent>
                                 <Stack direction="row" spacing={1} alignItems="center" mb={1}>
                                     <CreditCard color="primary" />
@@ -39,7 +39,7 @@ export default function UserBilling() {
                         </Card>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Card variant="outlined" sx={{ borderRadius: 3 }}>
+                        <Card variant="outlined">
                             <CardContent>
                                 <Stack direction="row" spacing={1} alignItems="center" mb={1}>
                                     <ReceiptLong color="primary" />

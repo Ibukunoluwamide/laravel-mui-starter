@@ -12,7 +12,7 @@ export default function UserNotifications() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="User | Notifications" />
-            <Card variant="outlined" sx={{ borderRadius: 3 }}>
+            <Card variant="outlined">
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
                         Notification preferences

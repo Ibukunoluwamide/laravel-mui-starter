@@ -11,6 +11,7 @@ import {
     Button,
 } from '@mui/material';
 import { CreditScore, ReceiptLong } from '@mui/icons-material';
+import { AdminShell } from '@/components/admin-shell';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Admin', href: '/admin' },
@@ -19,12 +20,12 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function AdminBilling() {
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AdminShell breadcrumbs={breadcrumbs}>
             <Head title="Admin | Billing" />
             <Stack spacing={3}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <Card variant="outlined" sx={{ borderRadius: 3 }}>
+                        <Card variant="outlined" >
                             <CardContent>
                                 <Stack direction="row" spacing={1} alignItems="center" mb={1}>
                                     <ReceiptLong color="primary" />
@@ -46,7 +47,7 @@ export default function AdminBilling() {
                         </Card>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Card variant="outlined" sx={{ borderRadius: 3 }}>
+                        <Card variant="outlined" >
                             <CardContent>
                                 <Stack direction="row" spacing={1} alignItems="center" mb={1}>
                                     <CreditScore color="primary" />
@@ -94,7 +95,7 @@ export default function AdminBilling() {
                     </Grid>
                 </Grid>
             </Stack>
-        </AppLayout>
+        </AdminShell>
     );
 }
 

@@ -1,4 +1,4 @@
-import { DashboardFrame } from '@/components/layout/dashboard-frame';
+import { UserShell } from '@/components/user-shell';
 import { type BreadcrumbItem } from '@/types';
 import { type PropsWithChildren } from 'react';
 
@@ -7,6 +7,6 @@ export default function AppSidebarLayout({
     breadcrumbs = [],
 }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[] }>) {
     return (
-        <DashboardFrame breadcrumbs={breadcrumbs}>{children}</DashboardFrame>
+        <UserShell breadcrumbs={breadcrumbs}>{children}</UserShell>
     );
 }

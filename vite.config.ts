@@ -24,4 +24,8 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    optimizeDeps: {
+        force: true,
+    },
+
 });

@@ -1,17 +1,17 @@
-import AppLayout from '@/layouts/app-layout';
+import { AdminShell } from '@/components/admin-shell';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import {
     Button,
     Card,
     CardContent,
-    Chip,
     Stack,
     TextField,
     Typography,
 } from '@mui/material';
-import { DataGrid, type GridColDef } from '@mui/x-data-grid';
-import { Add, VpnKey } from '@mui/icons-material';
+import { type GridColDef } from '@mui/x-data-grid';
+import { Add } from '@mui/icons-material';
+import Table from '@/components/table';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Admin', href: '/admin' },
@@ -20,9 +20,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const columns: GridColDef[] = [
     { field: 'name', headerName: 'Token name', flex: 1 },
-    { field: 'lastUsed', headerName: 'Last used', flex: 0.8 },
+    { field: 'lastUsed', headerName: 'Last used', flex: 1 },
     { field: 'scope', headerName: 'Scopes', flex: 1 },
-    { field: 'created', headerName: 'Created', flex: 0.7 },
+    { field: 'created', headerName: 'Created', flex: 1 },
 ];
 
 const rows = [
@@ -33,10 +33,10 @@ const rows = [
 
 export default function ApiTokensPage() {
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AdminShell breadcrumbs={breadcrumbs}>
             <Head title="Admin | API tokens" />
             <Stack spacing={3}>
-                <Card variant="outlined" sx={{ borderRadius: 3 }}>
+                <Card variant="outlined">
                     <CardContent>
                         <Stack
                             direction={{ xs: 'column', sm: 'row' }}
@@ -59,44 +59,29 @@ export default function ApiTokensPage() {
                             </Button>
                         </Stack>
                         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} mt={2}>
-                            <TextField fullWidth label="Token name" placeholder="Service or integration name" />
-                            <TextField fullWidth label="Scopes" placeholder="admin:read, billing:write" />
+                            <TextField fullWidth placeholder="Token name" />
+                            <TextField fullWidth placeholder="Scopes"  />
                         </Stack>
                     </CardContent>
                 </Card>
 
-                <Card variant="outlined" sx={{ borderRadius: 3 }}>
-                    <CardContent>
-                        <Stack
-                            direction="row"
-                            justifyContent="space-between"
-                            alignItems="center"
-                            mb={2}
-                        >
-                            <Stack spacing={0.5}>
-                                <Stack direction="row" spacing={1} alignItems="center">
-                                    <VpnKey color="primary" />
-                                    <Typography variant="h6">Existing tokens</Typography>
-                                </Stack>
-                                <Typography variant="body2" color="text.secondary">
-                                    Tokens issued via Laravel Sanctum
-                                </Typography>
-                            </Stack>
-                            <Chip label="Sanctum-ready" color="success" variant="outlined" />
-                        </Stack>
-                        <div style={{ height: 320, width: '100%' }}>
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                hideFooter
-                                disableRowSelectionOnClick
-                                sx={{ border: 0 }}
-                            />
-                        </div>
-                    </CardContent>
-                </Card>
+               <Table
+                rows={rows}
+                columns={columns}
+                title="Token"
+                checkboxSelection
+                defaultPageSize={10}
+                actions={{
+                    view: true,
+                    edit: true,
+                    delete: true,
+                    onView: (row) => console.log(row),
+                    onEdit: (row) => console.log(row),
+                    onDelete: (row) => console.log(row),
+                }}
+            />
             </Stack>
-        </AppLayout>
+        </AdminShell>
     );
 }
 

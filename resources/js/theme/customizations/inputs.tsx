@@ -32,6 +32,9 @@ export const inputsCustomizations: Components<Theme> = {
         boxShadow: 'none',
         borderRadius: (theme.vars || theme).shape.borderRadius,
         textTransform: 'none',
+        '&.Mui-disabled': {
+                    color: 'white',
+                },
         variants: [
           {
             props: {
@@ -57,31 +60,31 @@ export const inputsCustomizations: Components<Theme> = {
             },
             style: {
               color: 'white',
-              backgroundColor: gray[900],
-              backgroundImage: `linear-gradient(to bottom, ${gray[700]}, ${gray[800]})`,
-              boxShadow: `inset 0 1px 0 ${gray[600]}, inset 0 -1px 0 1px hsl(220, 0%, 0%)`,
-              border: `1px solid ${gray[700]}`,
+              backgroundColor: brand[900],
+              backgroundImage: `linear-gradient(to bottom, ${brand[700]}, ${brand[800]})`,
+              boxShadow: `inset 0 1px 0 ${brand[600]}, inset 0 -1px 0 1px hsl(220, 0%, 0%)`,
+              border: `1px solid ${brand[700]}`,
               '&:hover': {
                 backgroundImage: 'none',
-                backgroundColor: gray[700],
+                backgroundColor: brand[700],
                 boxShadow: 'none',
               },
               '&:active': {
-                backgroundColor: gray[800],
+                backgroundColor: brand[800],
               },
               ...theme.applyStyles('dark', {
                 color: 'black',
-                backgroundColor: gray[50],
-                backgroundImage: `linear-gradient(to bottom, ${gray[100]}, ${gray[50]})`,
+                backgroundColor: brand[50],
+                backgroundImage: `linear-gradient(to bottom, ${brand[100]}, ${brand[50]})`,
                 boxShadow: 'inset 0 -1px 0  hsl(220, 30%, 80%)',
-                border: `1px solid ${gray[50]}`,
+                border: `1px solid ${brand[50]}`,
                 '&:hover': {
                   backgroundImage: 'none',
-                  backgroundColor: gray[300],
+                  backgroundColor: brand[300],
                   boxShadow: 'none',
                 },
                 '&:active': {
-                  backgroundColor: gray[400],
+                  backgroundColor: brand[400],
                 },
               }),
             },
@@ -114,25 +117,25 @@ export const inputsCustomizations: Components<Theme> = {
             style: {
               color: (theme.vars || theme).palette.text.primary,
               border: '1px solid',
-              borderColor: gray[200],
-              backgroundColor: alpha(gray[50], 0.3),
+              borderColor: brand[200],
+              backgroundColor: alpha(brand[50], 0.3),
               '&:hover': {
-                backgroundColor: gray[100],
-                borderColor: gray[300],
+                backgroundColor: brand[100],
+                borderColor: brand[300],
               },
               '&:active': {
-                backgroundColor: gray[200],
+                backgroundColor: brand[200],
               },
               ...theme.applyStyles('dark', {
-                backgroundColor: gray[800],
-                borderColor: gray[700],
+                backgroundColor: brand[800],
+                borderColor: brand[700],
 
                 '&:hover': {
-                  backgroundColor: gray[900],
-                  borderColor: gray[600],
+                  backgroundColor: brand[900],
+                  borderColor: brand[600],
                 },
                 '&:active': {
-                  backgroundColor: gray[900],
+                  backgroundColor: brand[900],
                 },
               }),
             },
@@ -198,20 +201,20 @@ export const inputsCustomizations: Components<Theme> = {
               variant: 'text',
             },
             style: {
-              color: brand[700],
+              color: gray[700],
               '&:hover': {
-                backgroundColor: alpha(brand[100], 0.5),
+                backgroundColor: alpha(gray[100], 0.5),
               },
               '&:active': {
-                backgroundColor: alpha(brand[200], 0.7),
+                backgroundColor: alpha(gray[200], 0.7),
               },
               ...theme.applyStyles('dark', {
-                color: brand[100],
+                color: gray[100],
                 '&:hover': {
-                  backgroundColor: alpha(brand[900], 0.5),
+                  backgroundColor: alpha(gray[900], 0.5),
                 },
                 '&:active': {
-                  backgroundColor: alpha(brand[900], 0.3),
+                  backgroundColor: alpha(gray[900], 0.3),
                 },
               }),
             },
