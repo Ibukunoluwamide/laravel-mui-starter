@@ -24,7 +24,7 @@ export function Breadcrumbs({
                             <Link
                                 key={crumb.href}
                                 href={crumb.href}
-                                className="text-sm font-medium text-neutral-600 hover:underline dark:text-neutral-300"
+                                className="text-sm font-medium text-neutral-600 hover:underline"
                             >
                                 {crumb.title}
                             </Link>

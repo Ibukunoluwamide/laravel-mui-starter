@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\AdminAuthController::attempt
  * @see app/Http/Controllers/Admin/AdminAuthController.php:16
@@ -11,7 +11,7 @@ export const attempt = (options?: RouteQueryOptions): RouteDefinition<'post'> =>
 
 attempt.definition = {
     methods: ["post"],
-    url: '/admin/login',
+    url: '/register',
 } satisfies RouteDefinition<["post"]>
 
 /**

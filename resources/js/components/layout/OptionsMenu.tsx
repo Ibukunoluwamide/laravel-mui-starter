@@ -75,7 +75,7 @@ export default function OptionsMenu({ account, logoutUrl }: OptionsMenuProps) {
         {/* Account info */}
         <MenuItem disabled>
           <Typography variant="body2" fontWeight={600}>
-            {account.name}
+            {account?.name}
           </Typography>
         </MenuItem>
 

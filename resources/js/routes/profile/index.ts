@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\Settings\ProfileController::edit
  * @see app/Http/Controllers/Settings/ProfileController.php:19
@@ -207,6 +207,10 @@ destroy.delete = (options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
         })
     
     destroy.form = destroyForm
-const ProfileController = { edit, update, destroy }
+const profile = {
+    edit: Object.assign(edit, edit),
+update: Object.assign(update, update),
+destroy: Object.assign(destroy, destroy),
+}
 
-export default ProfileController
+export default profile

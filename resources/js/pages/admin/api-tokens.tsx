@@ -69,20 +69,14 @@ export default function ApiTokensPage() {
                 rows={rows}
                 columns={columns}
                 title="Token"
-                checkboxSelection
                 defaultPageSize={10}
-                actions={{
-                    view: true,
-                    edit: true,
-                    delete: true,
-                    onView: (row) => console.log(row),
-                    onEdit: (row) => console.log(row),
-                    onDelete: (row) => console.log(row),
-                }}
+                actionButton
+
             />
             </Stack>
         </AdminShell>
     );
 }
+
 
 

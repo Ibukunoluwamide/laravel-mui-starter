@@ -1,6 +1,7 @@
 import { DashboardFrame } from '@/components/layout/dashboard-frame';
 import { SharedData, type BreadcrumbItem } from '@/types';
 import { usePage } from '@inertiajs/react';
+import LoaderOverlay from "./loader-overlay";
 
 type AdminShellProps = {
     breadcrumbs?: BreadcrumbItem[];
@@ -10,11 +11,11 @@ type AdminShellProps = {
 export function AdminShell({ children, breadcrumbs = [] }: AdminShellProps) {
        const { props } = usePage<SharedData>();
         const auth = props.auth ?? { guard: 'guest', user: null, admin: null };
-         console.log(props);
         const navFilter = auth?.admin ? 'admin' : 'all'
             
     return (
         <DashboardFrame breadcrumbs={breadcrumbs} navFilter={navFilter}>
+            <LoaderOverlay />
             {children}
         </DashboardFrame>
     );

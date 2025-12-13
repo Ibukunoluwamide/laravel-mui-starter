@@ -1,6 +1,6 @@
-import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
+import { destroy } from '@/routes/profile';
 import { Form } from '@inertiajs/react';
 import {
     Alert,
@@ -62,7 +62,7 @@ export default function DeleteUser() {
                             </Alert>
 
                             <Form
-                                {...ProfileController.destroy.form()}
+                                {...destroy.form()}
                                 options={{ preserveScroll: true }}
                                 onError={() => passwordInput.current?.focus()}
                                 resetOnSuccess

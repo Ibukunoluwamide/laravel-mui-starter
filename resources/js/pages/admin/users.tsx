@@ -1,11 +1,10 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+
+import { GridColDef } from '@mui/x-data-grid';
 import { Box, Button, Stack } from '@mui/material';
-import { GridActionsCellItem, GridColDef } from '@mui/x-data-grid';
 import * as React from 'react';
 import { AdminShell } from '@/components/admin-shell';
 import Table from '@/components/table';
-import { Users, generateUsers } from './internals/data/users';
+import { User, generateUsers } from './internals/data/users';
 import { BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -14,7 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function EmployeesPage() {
-    const [rows] = React.useState<Users[]>(() => generateUsers(40));
+    const [rows] = React.useState<User[]>(() => generateUsers(40));
 
     const columns = React.useMemo<GridColDef[]>(
         () => [
@@ -29,23 +28,7 @@ export default function EmployeesPage() {
                 type: 'boolean',
                 minWidth: 120,
             },
-            {
-                field: 'actions',
-                type: 'actions',
-                width: 120,
-                getActions: ({ row }) => [
-                    <GridActionsCellItem
-                        icon={<EditIcon />}
-                        label="Edit"
-                        onClick={() => alert(`Edit ${row.name}`)}
-                    />,
-                    <GridActionsCellItem
-                        icon={<DeleteIcon />}
-                        label="Delete"
-                        onClick={() => alert(`Delete ${row.name}`)}
-                    />,
-                ],
-            },
+           
         ],
         [],
     );
@@ -67,6 +50,7 @@ export default function EmployeesPage() {
                     rows={rows}
                     columns={columns}
                     onRowClick={(row) => console.log('Row clicked:', row)}
+                    actionButton
                 />
             </Box>
         </AdminShell>

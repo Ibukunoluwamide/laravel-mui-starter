@@ -1,5 +1,4 @@
-import React from 'react';
-import { Head, Form } from '@inertiajs/react';
+import { Form, Head } from '@inertiajs/react';
 import {
     Button,
     Checkbox,
@@ -7,10 +6,10 @@ import {
     FormControl,
     FormControlLabel,
     FormLabel,
+    Card as MuiCard,
     Stack,
     TextField,
     Typography,
-    Card as MuiCard,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -19,9 +18,8 @@ import TextLink from '@/components/text-link';
 
 import { request } from '@/routes/password';
 
-import { attempt } from '@/routes/admin/login';
 import AppLogoIcon from '@/components/app-logo-icon';
-
+import { attempt } from '@/routes/admin/login';
 
 // -------------------------
 // Styled Components
@@ -67,19 +65,30 @@ export default function Login({
 
             <SignInContainer direction="column" justifyContent="center">
                 <Card variant="outlined">
-                    <AppLogoIcon className='w-8' />
+                    <AppLogoIcon className="w-8" />
 
                     <Typography
                         component="h1"
                         variant="h4"
-                        sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
+                        sx={{
+                            width: '100%',
+                            fontSize: 'clamp(2rem, 10vw, 2.15rem)',
+                        }}
                     >
-                      Log in
+                        Log in
+                    </Typography>
+
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ mt: 0.5 }}
+                    >
+                        Administrator access
                     </Typography>
 
                     {/* Inertia Form */}
                     <Form {...attempt.form()} className="w-full">
-                        {({  processing, errors }) => (
+                        {({ processing, errors }) => (
                             <Stack spacing={1}>
                                 <FormControl fullWidth>
                                     <FormLabel htmlFor="email">Email</FormLabel>
@@ -92,12 +101,18 @@ export default function Login({
                                         autoFocus
                                         required
                                         error={Boolean(errors.email)}
-                                        helperText={<InputError message={errors.email} />}
+                                        helperText={
+                                            <InputError
+                                                message={errors.email}
+                                            />
+                                        }
                                     />
                                 </FormControl>
 
                                 <FormControl fullWidth>
-                                    <FormLabel htmlFor="password">Password</FormLabel>
+                                    <FormLabel htmlFor="password">
+                                        Password
+                                    </FormLabel>
                                     <TextField
                                         id="password"
                                         type="password"
@@ -106,26 +121,31 @@ export default function Login({
                                         autoComplete="current-password"
                                         required
                                         error={Boolean(errors.password)}
-                                        helperText={<InputError message={errors.password} />}
+                                        helperText={
+                                            <InputError
+                                                message={errors.password}
+                                            />
+                                        }
                                     />
                                 </FormControl>
 
                                 <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            name="remember"
-                                        />
-                                    }
+                                    control={<Checkbox name="remember" />}
                                     label="Remember me"
                                 />
 
-                                <Button variant="contained" type="submit" fullWidth disabled={processing}>
+                                <Button
+                                    variant="contained"
+                                    type="submit"
+                                    fullWidth
+                                    disabled={processing}
+                                >
                                     {processing ? 'Logging in...' : 'Log in'}
                                 </Button>
 
                                 {canResetPassword && (
                                     <TextLink
-                                        className='text-center'
+                                        className="text-center"
                                         href={request()}
                                     >
                                         Forgot your password?
@@ -135,7 +155,6 @@ export default function Login({
                         )}
                     </Form>
 
-                 
                     {status && (
                         <div className="mt-2 text-center text-sm font-medium text-green-600">
                             {status}
