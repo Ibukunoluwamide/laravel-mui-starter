@@ -1,8 +1,5 @@
 import Heading from '@/components/heading';
 import {  isSameUrl, resolveUrl } from '@/lib/utils';
-import { edit as editAppearance } from '@/routes/appearance';
-import { edit } from '@/routes/profile';
-import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
@@ -20,18 +17,18 @@ import { type PropsWithChildren } from 'react';
 const sidebarNavItems: NavItem[] = [
     {
         title: 'Profile',
-        href: edit(),
+        href: '/settings/profile',
         icon: null,
     },
     {
         title: 'Password',
-        href: editPassword(),
+        href: '/settings/password',
         icon: null,
     },
    
     {
         title: 'Appearance',
-        href: editAppearance(),
+        href: '/settings/appearance',
         icon: null,
     },
 ];

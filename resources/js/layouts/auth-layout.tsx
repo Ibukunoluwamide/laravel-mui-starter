@@ -1,3 +1,4 @@
+import FlashHandler from '@/components/flash-handler';
 import AuthLayoutTemplate from '@/layouts/auth/auth-card-layout';
 
 export default function AuthLayout({
@@ -12,6 +13,7 @@ export default function AuthLayout({
 }) {
     return (
         <AuthLayoutTemplate title={title} description={description} {...props}>
+            <FlashHandler />
             {children}
         </AuthLayoutTemplate>
     );

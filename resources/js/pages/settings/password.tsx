@@ -1,25 +1,48 @@
-import PasswordController from '@/actions/App/Http/Controllers/Settings/PasswordController';
 import InputError from '@/components/input-error';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { type BreadcrumbItem } from '@/types';
-import { Form, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { Button, Fade, Stack, TextField, Typography } from '@mui/material';
 import { useRef } from 'react';
 
 import HeadingSmall from '@/components/heading-small';
-import { edit } from '@/routes/user-password';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Password settings',
-        href: edit().url,
+        href: '/settings/password',
     },
 ];
 
 export default function Password() {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
+
+    const { data, setData, put, processing, recentlySuccessful, errors, reset } = useForm({
+        current_password: '',
+        password: '',
+        password_confirmation: '',
+    });
+
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+        put('/settings/password', {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset('password', 'password_confirmation', 'current_password');
+            },
+            onError: (errors) => {
+                if (errors.password) {
+                    passwordInput.current?.focus();
+                }
+
+                if (errors.current_password) {
+                    currentPasswordInput.current?.focus();
+                }
+            },
+        });
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -32,97 +55,81 @@ export default function Password() {
                         description="Ensure your account is using a long, random password to stay secure"
                     />
 
-                    <Form
-                        {...PasswordController.update.form()}
-                        options={{
-                            preserveScroll: true,
-                        }}
-                        resetOnError={[
-                            'password',
-                            'password_confirmation',
-                            'current_password',
-                        ]}
-                        resetOnSuccess
-                        onError={(errors) => {
-                            if (errors.password) {
-                                passwordInput.current?.focus();
-                            }
+                    <form onSubmit={submit} className="space-y-6">
+                        <Stack spacing={3}>
+                            <TextField
+                                id="current_password"
+                                inputRef={currentPasswordInput}
+                                type="password"
+                                label="Current password"
+                                value={data.current_password}
+                                onChange={(e) =>
+                                    setData('current_password', e.target.value)
+                                }
+                                autoComplete="current-password"
+                                placeholder="Current password"
+                                error={Boolean(errors.current_password)}
+                                helperText={
+                                    <InputError
+                                        message={errors.current_password}
+                                    />
+                                }
+                            />
 
-                            if (errors.current_password) {
-                                currentPasswordInput.current?.focus();
-                            }
-                        }}
-                        className="space-y-6"
-                    >
-                        {({ errors, processing, recentlySuccessful }) => (
-                            <Stack spacing={3}>
-                                <TextField
-                                    id="current_password"
-                                    inputRef={currentPasswordInput}
-                                    name="current_password"
-                                    type="password"
-                                    label="Current password"
-                                    autoComplete="current-password"
-                                    placeholder="Current password"
-                                    error={Boolean(errors.current_password)}
-                                    helperText={
-                                        <InputError
-                                            message={errors.current_password}
-                                        />
-                                    }
-                                />
+                            <TextField
+                                id="password"
+                                inputRef={passwordInput}
+                                type="password"
+                                label="New password"
+                                value={data.password}
+                                onChange={(e) => setData('password', e.target.value)}
+                                autoComplete="new-password"
+                                placeholder="New password"
+                                error={Boolean(errors.password)}
+                                helperText={
+                                    <InputError message={errors.password} />
+                                }
+                            />
 
-                                <TextField
-                                    id="password"
-                                    inputRef={passwordInput}
-                                    name="password"
-                                    type="password"
-                                    label="New password"
-                                    autoComplete="new-password"
-                                    placeholder="New password"
-                                    error={Boolean(errors.password)}
-                                    helperText={
-                                        <InputError message={errors.password} />
-                                    }
-                                />
+                            <TextField
+                                id="password_confirmation"
+                                type="password"
+                                label="Confirm password"
+                                value={data.password_confirmation}
+                                onChange={(e) =>
+                                    setData('password_confirmation', e.target.value)
+                                }
+                                autoComplete="new-password"
+                                placeholder="Confirm password"
+                                error={Boolean(errors.password_confirmation)}
+                                helperText={
+                                    <InputError
+                                        message={errors.password_confirmation}
+                                    />
+                                }
+                            />
 
-                                <TextField
-                                    id="password_confirmation"
-                                    name="password_confirmation"
-                                    type="password"
-                                    label="Confirm password"
-                                    autoComplete="new-password"
-                                    placeholder="Confirm password"
-                                    error={Boolean(errors.password_confirmation)}
-                                    helperText={
-                                        <InputError
-                                            message={errors.password_confirmation}
-                                        />
-                                    }
-                                />
+                            <Stack direction="row" spacing={2} alignItems="center">
+                                <Button
+                                    disabled={processing}
+                                    data-test="update-password-button"
+                                    variant="contained"
+                                    type="submit"
+                                >
+                                    Save password
+                                </Button>
 
-                                <Stack direction="row" spacing={2} alignItems="center">
-                                    <Button
-                                        disabled={processing}
-                                        data-test="update-password-button"
-                                        variant="contained"
-                                        type="submit"
+                                <Fade in={recentlySuccessful}>
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
                                     >
-                                        Save password
-                                    </Button>
-
-                                    <Fade in={recentlySuccessful}>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
-                                            Saved
-                                        </Typography>
-                                    </Fade>
-                                </Stack>
+                                        Saved
+                                    </Typography>
+                                </Fade>
                             </Stack>
-                        )}
-                    </Form>
+                        </Stack>
+                    </form>
                 </div>
             </SettingsLayout>
         </AppLayout>

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Head, Form } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import {
     Button,
     Checkbox,
-    CssBaseline,
     Divider,
     FormControl,
     FormControlLabel,
@@ -11,172 +10,125 @@ import {
     Stack,
     TextField,
     Typography,
-    Card as MuiCard,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
-
-import { request } from '@/routes/password';
-import { register } from '@/routes';
-import { store } from '@/routes/login';
-
 import { GoogleIcon, FacebookIcon } from './components/custom-icons';
-import AppLogoIcon from '@/components/app-logo-icon';
+import CustomAuthLayout from '@/layouts/custom-auth-layout';
 
-// -------------------------
-// Styled Components
-// -------------------------
-const Card = styled(MuiCard)(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignSelf: 'center',
-    width: '100%',
-    padding: theme.spacing(4),
-    gap: theme.spacing(2),
-    margin: 'auto',
-    [theme.breakpoints.up('sm')]: {
-        maxWidth: '450px',
-    },
-    boxShadow:
-        'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-}));
-
-const SignInContainer = styled(Stack)(({ theme }) => ({
-    minHeight: '100vh',
-    padding: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(4),
-    },
-}));
-
-// -------------------------
-// Main Component
-// -------------------------
 export default function Login({
-    status,
     canResetPassword,
     canRegister,
 }: {
-    status?: string;
     canResetPassword: boolean;
     canRegister: boolean;
 }) {
+    const { data, setData, post, processing, errors } = useForm({
+        email: '',
+        password: '',
+        remember: false,
+    });
+
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+          post('/login');
+    };
+
     return (
         <>
             <Head title="Log in" />
-            <CssBaseline />
 
-            <SignInContainer direction="column" justifyContent="center">
-                <Card variant="outlined">
-                    <AppLogoIcon className='w-8' />
+            <CustomAuthLayout title="Login">
+                <form onSubmit={submit} className="w-full">
+                    <Stack spacing={1}>
+                        <FormControl fullWidth>
+                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <TextField
+                                id="email"
+                                type="email"
+                                value={data.email}
+                                onChange={(e) => setData('email', e.target.value)}
+                                placeholder="your@email.com"
+                                autoComplete="email"
+                                autoFocus
+                                required
+                                error={Boolean(errors.email)}
+                                helperText={<InputError message={errors.email} />}
+                            />
+                        </FormControl>
 
-                    <Typography
-                        component="h1"
-                        variant="h4"
-                        sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-                    >
-                        Log in
-                    </Typography>
+                        <FormControl fullWidth>
+                            <FormLabel htmlFor="password">Password</FormLabel>
+                            <TextField
+                                id="password"
+                                type="password"
+                                value={data.password}
+                                onChange={(e) => setData('password', e.target.value)}
+                                placeholder="••••••"
+                                autoComplete="current-password"
+                                required
+                                error={Boolean(errors.password)}
+                                helperText={<InputError message={errors.password} />}
+                            />
+                        </FormControl>
 
-                    {/* Inertia Form */}
-                    <Form {...store.form()} className="w-full">
-                        {({  processing, errors }) => (
-                            <Stack spacing={1}>
-                                <FormControl fullWidth>
-                                    <FormLabel htmlFor="email">Email</FormLabel>
-                                    <TextField
-                                        id="email"
-                                        type="email"
-                                        name="email"
-                                        placeholder="your@email.com"
-                                        autoComplete="email"
-                                        autoFocus
-                                        required
-                                        error={Boolean(errors.email)}
-                                        helperText={<InputError message={errors.email} />}
-                                    />
-                                </FormControl>
-
-                                <FormControl fullWidth>
-                                    <FormLabel htmlFor="password">Password</FormLabel>
-                                    <TextField
-                                        id="password"
-                                        type="password"
-                                        name="password"
-                                        placeholder="••••••"
-                                        autoComplete="current-password"
-                                        required
-                                        error={Boolean(errors.password)}
-                                        helperText={<InputError message={errors.password} />}
-                                    />
-                                </FormControl>
-
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            name="remember"
-                                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={data.remember}
+                                    onChange={(e) =>
+                                        setData('remember', e.target.checked)
                                     }
-                                    label="Remember me"
                                 />
-
-                                <Button variant="contained" type="submit" fullWidth disabled={processing}>
-                                    {processing ? 'Logging in...' : 'Log in'}
-                                </Button>
-
-                                {canResetPassword && (
-                                    <TextLink
-                                        className='text-center'
-                                        href={request()}
-                                    >
-                                        Forgot your password?
-                                    </TextLink>
-                                )}
-                            </Stack>
-                        )}
-                    </Form>
-
-                    <Divider>or</Divider>
-
-                    {/* Social buttons */}
-                    <Stack spacing={2}>
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            startIcon={<GoogleIcon />}
-                            onClick={() => alert('Google auth not implemented')}
-                        >
-                            Sign in with Google
-                        </Button>
+                            }
+                            label="Remember me"
+                        />
 
                         <Button
+                            variant="contained"
+                            type="submit"
                             fullWidth
-                            variant="outlined"
-                            startIcon={<FacebookIcon />}
-                            onClick={() => alert('Facebook auth not implemented')}
+                            disabled={processing}
                         >
-                            Sign in with Facebook
+                            {processing ? 'Logging in...' : 'Log in'}
                         </Button>
 
-                        {canRegister && (
-                            <Typography sx={{ textAlign: 'center' }}>
-                                Don&apos;t have an account?{' '}
-                                <TextLink href={register()}>
-                                    Sign up
-                                </TextLink>
-                            </Typography>
+                        {canResetPassword && (
+                            <TextLink className="text-center" href="/forgot-password">
+                                Forgot your password?
+                            </TextLink>
                         )}
                     </Stack>
+                </form>
 
-                    {status && (
-                        <div className="mt-2 text-center text-sm font-medium text-green-600">
-                            {status}
-                        </div>
+                <Divider>or</Divider>
+
+                <Stack spacing={2}>
+                    <Button
+                        fullWidth
+                        variant="outlined"
+                        startIcon={<GoogleIcon />}
+                    >
+                        Sign in with Google
+                    </Button>
+
+                    <Button
+                        fullWidth
+                        variant="outlined"
+                        startIcon={<FacebookIcon />}
+                    >
+                        Sign in with Facebook
+                    </Button>
+
+                    {canRegister && (
+                        <Typography textAlign="center">
+                            Don&apos;t have an account?{' '}
+                            <TextLink href="/register">Sign up</TextLink>
+                        </Typography>
                     )}
-                </Card>
-            </SignInContainer>
+                </Stack>
+            </CustomAuthLayout>
         </>
     );
 }

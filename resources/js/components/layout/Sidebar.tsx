@@ -3,6 +3,7 @@ import { BreadcrumbItem, NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
     Api,
+    Logout,
     SupportAgent,
     ViewSidebar,
 } from '@mui/icons-material';
@@ -47,6 +48,7 @@ export function Sidebar({
     apiTokensUrl,
     mobileOpen,
     setMobileOpen,
+    logoutUrl,
 }: LayoutNavProps) {
     const prefersDesktop = useMediaQuery('(min-width:900px)');
     const drawerWidth = 240;
@@ -161,6 +163,14 @@ export function Sidebar({
                     size="small"
                 >
                     Contact support
+                </Button>
+                <Button
+                    startIcon={<Logout />}
+                    variant="text"
+                    href={logoutUrl}
+                    size="small"
+                >
+                    Logout
                 </Button>
             </Stack>
 

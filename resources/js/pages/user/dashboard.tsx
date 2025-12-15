@@ -52,7 +52,7 @@ export default function UserDashboard() {
         <UserShell breadcrumbs={breadcrumbs}>
             <Head title="User | Dashboard" />
 
-            <Stack spacing={4}>
+            <Stack>
                 {/* Stats */}
                 <Grid container spacing={2}>
                     {stats.map((item) => (
@@ -118,6 +118,7 @@ export default function UserDashboard() {
                 <Card
                     variant="outlined"
                     sx={{
+                        marginTop: 4,
                         bgcolor: 'background.default',
                     }}
                 >

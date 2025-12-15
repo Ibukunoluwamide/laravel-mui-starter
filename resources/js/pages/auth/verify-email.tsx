@@ -2,11 +2,17 @@
 import TextLink from '@/components/text-link';
 import AuthLayout from '@/layouts/auth-layout';
 import { logout } from '@/routes';
-import { send } from '@/routes/verification';
-import { Form, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 
 export default function VerifyEmail({ status }: { status?: string }) {
+    const { post, processing } = useForm({});
+
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post('/email/verification-notification');
+    };
+
     return (
         <AuthLayout
             title="Verify email"
@@ -21,29 +27,28 @@ export default function VerifyEmail({ status }: { status?: string }) {
                 </div>
             )}
 
-            <Form {...send.form()} className="space-y-6 text-center">
-                {({ processing }) => (
-                    <Stack spacing={2} alignItems="center">
-                        <Button
-                            disabled={processing}
-                            variant="contained"
-                            startIcon={
-                                processing ? (
-                                    <CircularProgress size={16} />
-                                ) : undefined
-                            }
-                        >
-                            Resend verification email
-                        </Button>
+            <form onSubmit={submit} className="space-y-6 text-center">
+                <Stack spacing={2} alignItems="center">
+                    <Button
+                        disabled={processing}
+                        variant="contained"
+                        type="submit"
+                        startIcon={
+                            processing ? (
+                                <CircularProgress size={16} />
+                            ) : undefined
+                        }
+                    >
+                        Resend verification email
+                    </Button>
 
-                        <Typography variant="body2" color="text.secondary">
-                            <TextLink href={logout()} className="mx-auto">
-                                Log out
-                            </TextLink>
-                        </Typography>
-                    </Stack>
-                )}
-            </Form>
+                    <Typography variant="body2" color="text.secondary">
+                        <TextLink href={logout()} className="mx-auto">
+                            Log out
+                        </TextLink>
+                    </Typography>
+                </Stack>
+            </form>
         </AuthLayout>
     );
 }

@@ -11,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { login, register } from '@/routes';
 import { Link } from '@inertiajs/react';
 import ColorModeIconDropdown from '@/theme/ColorModeIconDropdown';
 import AppLogo from '@/components/app-logo';
@@ -77,11 +76,11 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Button color="primary" variant="text" size="small" component={Link} href={login()}>
-              <Link href={login()}>Sign in</Link>
+            <Button color="primary" variant="text" size="small" component={Link} href="/login">
+              Sign in
             </Button>
-            <Button color="primary" variant="contained" size="small" component={Link} href={register()}>
-              <Link href={register()}>Register</Link>
+            <Button color="primary" variant="contained" size="small" component={Link} href="/register">
+              Register
             </Button>
             <ColorModeIconDropdown />
           </Box>

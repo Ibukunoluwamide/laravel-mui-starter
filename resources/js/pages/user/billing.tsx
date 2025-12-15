@@ -20,7 +20,7 @@ export default function UserBilling() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="User | Billing" />
-            <Stack spacing={3}>
+            <Stack>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <Card variant="outlined" >

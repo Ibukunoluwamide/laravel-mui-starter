@@ -1,6 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import {
     DataGrid,
     GridActionsCellItem,
@@ -69,53 +69,81 @@ export default function Table<T extends { id: number | string }>({
     }, [columns, actionButton]);
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <DataGrid
-                rows={rows}
-                columns={finalColumns}
-                loading={loading}
-                autoHeight
-                pagination
-                disableRowSelectionOnClick
-                paginationModel={paginationModel}
-                onPaginationModelChange={setPaginationModel}
-                sortModel={sortModel}
-                onSortModelChange={setSortModel}
-                pageSizeOptions={pageSizeOptions}
-                filterModel={{
-                    items: [],
-                    quickFilterValues: search ? [search] : [],
-                }}
-                onRowClick={(params) => onRowClick?.(params.row)}
-                slots={{
-                    toolbar: DataTableToolbar,
-                }}
-                slotProps={{
-                    toolbar: {
-                        title,
-                        search,
-                        onSearchChange: setSearch,
-                    },
-                    baseIconButton: { size: 'small' },
-                    loadingOverlay: {
-                        variant: 'circular-progress',
-                        noRowsVariant: 'circular-progress',
-                    },
-                }}
-                sx={{
-                    minWidth: 700,
-                    [`& .${gridClasses.columnHeader}`]: {
-                        fontWeight: 600,
-                        whiteSpace: 'nowrap',
-                    },
-                    [`& .${gridClasses.cell}`]: {
-                        whiteSpace: 'nowrap',
-                    },
-                    [`& .${gridClasses.row}:hover`]: {
-                        cursor: onRowClick ? 'pointer' : 'default',
-                    },
-                }}
-            />
-        </Box>
+        <Paper
+        sx={{
+            width: '100%',
+            overflowX: 'auto',
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'divider',
+        }}
+    >
+        <DataGrid
+            rows={rows}
+            columns={finalColumns}
+            loading={loading}
+            pagination
+            disableRowSelectionOnClick
+            paginationModel={paginationModel}
+            onPaginationModelChange={setPaginationModel}
+            sortModel={sortModel}
+            onSortModelChange={setSortModel}
+            pageSizeOptions={pageSizeOptions}          
+            filterModel={{
+                items: [],
+                quickFilterValues: search ? [search] : [],
+            }}
+            onRowClick={(params) => onRowClick?.(params.row)}
+            slots={{
+                toolbar: DataTableToolbar,
+            }}
+            slotProps={{
+                toolbar: {
+                    title,
+                    search,
+                    onSearchChange: setSearch,
+                },
+                baseIconButton: { size: 'small' },
+            }}
+            sx={{
+                border: 0,
+    
+                /* Header */
+                '& .MuiDataGrid-columnHeaders': {
+                    borderBottom: '1px solid',
+                    borderColor: 'divider',
+                    backgroundColor: 'background.paper',
+                    fontWeight: 600,
+                },
+    
+                /* Vertical column lines */
+                '& .MuiDataGrid-cell': {
+                    borderRight: '1px solid',
+                    borderColor: 'divider',
+                },
+                '& .MuiDataGrid-columnHeader': {
+                    borderRight: '1px solid',
+                    borderColor: 'divider',
+                },
+    
+                /* Remove last column right border */
+                '& .MuiDataGrid-cell:last-of-type, & .MuiDataGrid-columnHeader:last-of-type': {
+                    borderRight: 'none',
+                },
+    
+                /* Row lines */
+                '& .MuiDataGrid-row': {
+                    borderBottom: '1px solid',
+                    borderColor: 'divider',
+                },
+    
+                /* Hover */
+                '& .MuiDataGrid-row:hover': {
+                    backgroundColor: 'action.hover',
+                },
+            }}
+        />
+    </Paper>
+    
     );
 }

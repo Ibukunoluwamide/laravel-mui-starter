@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 
 export default function LoaderOverlay({ autoHideAfter = null }) {
-   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Loading indicator for page navigation
   useEffect(() => {
@@ -27,33 +27,37 @@ export default function LoaderOverlay({ autoHideAfter = null }) {
   if (!loading) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/50 dark:bg-black/50 backdrop-blur-sm">
-      <div className="relative w-20 h-20">
-        {/* Glowing ring */}
-        <div className="absolute inset-0 rounded-full border-4 border-primary opacity-30 animate-ping" />
+    <>
+      <BrandLoader />
+    </>
+  );
+}
 
-        {/* Smooth rotating ring */}
-        <div className="absolute inset-0 border-4 border-t-primary border-b-transparent border-l-transparent border-r-primary dark:border-t-primary dark:border-r-blue-500 rounded-full animate-custom-spin" />
 
-        {/* Center Icon/Text */}
-        <div className="absolute inset-0 flex items-center justify-center font-extrabold text-primary dark:text-primary text-2xl">
-          
+function BrandLoader() {
+  return (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/60 backdrop-blur-md">
+      <div className="relative flex flex-col items-center gap-4">
+
+        {/* Outer glowing ring */}
+        <div className="absolute w-28 h-28 rounded-full animate-pulse" />
+
+        {/* Spinning gradient ring */}
+        <div className="relative w-24 h-24 rounded-full animate-spin
+                        bg-gradient-to-r from-primary via-blue-500 to-primary
+                        p-[3px]">
+          <div className="w-full h-full rounded-full bg-white " />
         </div>
+
+        {/* Brand text */}
+        <div className="absolute text-center">
+
+        </div>
+        <span className="text-xs text-gray-500  tracking-widest">
+          Zekode
+        </span>
+
       </div>
-
-      {/* Custom animation */}
-      <style>
-        {`
-          @keyframes custom-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-
-          .animate-custom-spin {
-            animation: custom-spin 1.2s linear infinite;
-          }
-        `}
-      </style>
     </div>
   );
 }

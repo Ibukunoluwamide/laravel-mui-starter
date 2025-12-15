@@ -88,9 +88,7 @@ export function Navbar({ breadcrumbs, mobileOpen, setMobileOpen, accountType, ac
                     >
                         Upgrade
                     </Button>
-                        <Tooltip title="Notifications">
-                            <OptionsMenu account={account} logoutUrl={logoutUrl} />
-                        </Tooltip>
+                       
                 </Stack>
             </Toolbar>
 

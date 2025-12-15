@@ -1,5 +1,4 @@
-import { update } from '@/routes/password';
-import { Form, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 import InputError from '@/components/input-error';
 import AuthLayout from '@/layouts/auth-layout';
@@ -16,6 +15,22 @@ interface ResetPasswordProps {
 }
 
 export default function ResetPassword({ token, email }: ResetPasswordProps) {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        email,
+        token,
+        password: '',
+        password_confirmation: '',
+    });
+
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post('/reset-password', {
+            onSuccess: () => {
+                reset('password', 'password_confirmation');
+            },
+        });
+    };
+
     return (
         <AuthLayout
             title="Reset password"
@@ -23,69 +38,66 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
         >
             <Head title="Reset password" />
 
-            <Form
-                {...update.form()}
-                transform={(data) => ({ ...data, token, email })}
-                resetOnSuccess={['password', 'password_confirmation']}
-            >
-                {({ processing, errors }) => (
-                    <Stack spacing={3}>
-                        <TextField
-                            id="email"
-                            type="email"
-                            name="email"
-                            autoComplete="email"
-                            value={email}
-                            label="Email"
-                            readOnly
-                            error={Boolean(errors.email)}
-                            helperText={<InputError message={errors.email} />}
-                        />
+            <form onSubmit={submit}>
+                <Stack spacing={3}>
+                    <TextField
+                        id="email"
+                        type="email"
+                        autoComplete="email"
+                        value={email}
+                        label="Email"
+                        readOnly
+                        error={Boolean(errors.email)}
+                        helperText={<InputError message={errors.email} />}
+                    />
 
-                        <TextField
-                            id="password"
-                            type="password"
-                            name="password"
-                            autoComplete="new-password"
-                            autoFocus
-                            placeholder="Password"
-                            label="Password"
-                            error={Boolean(errors.password)}
-                            helperText={<InputError message={errors.password} />}
-                        />
+                    <TextField
+                        id="password"
+                        type="password"
+                        value={data.password}
+                        onChange={(e) => setData('password', e.target.value)}
+                        autoComplete="new-password"
+                        autoFocus
+                        placeholder="Password"
+                        label="Password"
+                        error={Boolean(errors.password)}
+                        helperText={<InputError message={errors.password} />}
+                    />
 
-                        <TextField
-                            id="password_confirmation"
-                            type="password"
-                            name="password_confirmation"
-                            autoComplete="new-password"
-                            placeholder="Confirm password"
-                            label="Confirm password"
-                            error={Boolean(errors.password_confirmation)}
-                            helperText={
-                                <InputError
-                                    message={errors.password_confirmation}
-                                />
-                            }
-                        />
+                    <TextField
+                        id="password_confirmation"
+                        type="password"
+                        value={data.password_confirmation}
+                        onChange={(e) =>
+                            setData('password_confirmation', e.target.value)
+                        }
+                        autoComplete="new-password"
+                        placeholder="Confirm password"
+                        label="Confirm password"
+                        error={Boolean(errors.password_confirmation)}
+                        helperText={
+                            <InputError
+                                message={errors.password_confirmation}
+                            />
+                        }
+                    />
 
-                        <Button
-                            type="submit"
-                            fullWidth
-                            disabled={processing}
-                            data-test="reset-password-button"
-                            variant="contained"
-                            startIcon={
-                                processing ? (
-                                    <CircularProgress size={16} />
-                                ) : undefined
-                            }
-                        >
-                            Reset password
-                        </Button>
-                    </Stack>
-                )}
-            </Form>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        disabled={processing}
+                        data-test="reset-password-button"
+                        variant="contained"
+                        startIcon={
+                            processing ? (
+                                <CircularProgress size={16} />
+                            ) : undefined
+                        }
+                    >
+                        Reset password
+                    </Button>
+                </Stack>
+            </form>
         </AuthLayout>
     );
 }

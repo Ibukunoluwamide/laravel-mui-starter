@@ -1,7 +1,6 @@
 // Components
 import { login } from '@/routes';
-import { email } from '@/routes/password';
-import { Form, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import {
     Button,
     CircularProgress,
@@ -15,6 +14,15 @@ import TextLink from '@/components/text-link';
 import AuthLayout from '@/layouts/auth-layout';
 
 export default function ForgotPassword({ status }: { status?: string }) {
+    const { data, setData, post, processing, errors } = useForm({
+        email: '',
+    });
+
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+        post('/forgot-password');
+    };
+
     return (
         <AuthLayout
             title="Forgot password"
@@ -28,38 +36,41 @@ export default function ForgotPassword({ status }: { status?: string }) {
                 </div>
             )}
 
-            <Stack spacing={4}>
-                <Form {...email.form()}>
-                    {({ processing, errors }) => (
-                        <Stack spacing={3}>
-                            <TextField
-                                id="email"
-                                type="email"
-                                name="email"
-                                autoComplete="off"
-                                autoFocus
-                                placeholder="email@example.com"
-                                label="Email address"
-                                error={Boolean(errors.email)}
-                                helperText={<InputError message={errors.email} />}
-                            />
+            <Stack>
+                <form onSubmit={submit}>
+                    <Stack>
+                        <TextField
+                            id="email"
+                            type="email"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            autoComplete="off"
+                            autoFocus
+                            placeholder="email@example.com"
+                            label="Email address"
+                            sx={{
+                                margin: '4px 2px',
+                            }}
+                            error={Boolean(errors.email)}
+                            helperText={<InputError message={errors.email} />}
+                        />
 
-                            <Button
-                                fullWidth
-                                disabled={processing}
-                                data-test="email-password-reset-link-button"
-                                variant="contained"
-                                startIcon={
-                                    processing ? (
-                                        <CircularProgress size={16} />
-                                    ) : undefined
-                                }
-                            >
-                                Email password reset link
-                            </Button>
-                        </Stack>
-                    )}
-                </Form>
+                        <Button
+                            fullWidth
+                            disabled={processing}
+                            data-test="email-password-reset-link-button"
+                            variant="contained"
+                            type="submit"
+                            startIcon={
+                                processing ? (
+                                    <CircularProgress size={16} />
+                                ) : undefined
+                            }
+                        >
+                            Email password reset link
+                        </Button>
+                    </Stack>
+                </form>
 
                 <Typography
                     textAlign="center"

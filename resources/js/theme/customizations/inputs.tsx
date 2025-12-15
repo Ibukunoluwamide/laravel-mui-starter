@@ -1,7 +1,6 @@
 import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { alpha, Components, Theme } from '@mui/material/styles';
 import { svgIconClasses } from '@mui/material/SvgIcon';
 import { toggleButtonClasses } from '@mui/material/ToggleButton';
@@ -65,7 +64,7 @@ export const inputsCustomizations: Components<Theme> = {
                             boxShadow: `inset 0 1px 0 ${brand[600]}, inset 0 -1px 0 1px hsl(220, 0%, 0%)`,
                             border: `1px solid ${brand[700]}`,
                             '&.Mui-disabled': {
-                                color: 'black',
+                                color: 'white',
                             },
                             '&:hover': {
                                 backgroundImage: 'none',
@@ -82,6 +81,9 @@ export const inputsCustomizations: Components<Theme> = {
                                 backgroundImage: `linear-gradient(to bottom, ${brand[100]}, ${brand[50]})`,
                                 boxShadow: 'inset 0 -1px 0  hsl(220, 30%, 80%)',
                                 border: `1px solid ${brand[50]}`,
+                                '&.Mui-disabled': {
+                                    color: 'black',
+                                },
                                 '&:hover': {
                                     backgroundImage: 'none',
                                     backgroundColor: brand[300],
@@ -393,48 +395,26 @@ export const inputsCustomizations: Components<Theme> = {
             },
             root: ({ theme }) => ({
                 padding: '8px 12px',
-                color: (theme.vars || theme).palette.text.primary,
-                borderRadius: (theme.vars || theme).shape.borderRadius,
-                border: `1px solid ${(theme.vars || theme).palette.divider}`,
-                backgroundColor: (theme.vars || theme).palette.background
-                    .default,
+                borderRadius: theme.shape.borderRadius,
+                backgroundColor: theme.palette.background.default,
                 transition: 'border 120ms ease-in',
-                '&:hover': {
+
+                '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: gray[400],
                 },
-                [`&.${outlinedInputClasses.focused}`]: {
-                    outline: `1px solid ${alpha(brand[500], 0.5)}`,
+
+                [`&.Mui-focused .MuiOutlinedInput-notchedOutline`]: {
                     borderColor: brand[400],
+                    borderWidth: 1,
                 },
-                ...theme.applyStyles('dark', {
-                    '&:hover': {
-                        borderColor: gray[500],
-                    },
-                }),
-                variants: [
-                    {
-                        props: {
-                            size: 'small',
-                        },
-                        style: {
-                            height: '2.25rem',
-                        },
-                    },
-                    {
-                        props: {
-                            size: 'medium',
-                        },
-                        style: {
-                            height: '2.5rem',
-                        },
-                    },
-                ],
             }),
-            notchedOutline: {
-                border: 'none',
-            },
+
+            notchedOutline: ({ theme }) => ({
+                borderColor: theme.palette.divider,
+            }),
         },
     },
+
     MuiInputAdornment: {
         styleOverrides: {
             root: ({ theme }) => ({
@@ -445,6 +425,20 @@ export const inputsCustomizations: Components<Theme> = {
             }),
         },
     },
+    MuiInputLabel: {
+        styleOverrides: {
+            root: ({ theme }) => ({
+                transform: 'translate(12px, 8px) scale(1)',
+                transition: theme.transitions.create(['transform'], {
+                    duration: theme.transitions.duration.shorter,
+                }),
+            }),
+            shrink: {
+                transform: 'translate(12px, -6px) scale(0.75)',
+            },
+        },
+    },
+
     MuiFormLabel: {
         styleOverrides: {
             root: ({ theme }) => ({

@@ -41,7 +41,8 @@ class HandleInertiaRequests extends Middleware
 
         $admin = Auth::guard('admin')->user();
         $user = $request->user();
-        $guard = $admin ? 'admin' : ($user ? 'web' : 'guest');
+        $adminGuard = $admin ? 'admin' : 'guest';
+        $userGuard = $user ? 'web' : 'guest';
 
         return [
             ...parent::share($request),
@@ -50,7 +51,14 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $user,
                 'admin' => $admin,
-                'guard' => $guard,
+                'adminGuard' => $adminGuard,
+                'userGuard' => $userGuard,
+            ],
+             'flash' => [
+                'success' => $request->session()->get('success'),
+                'error' => $request->session()->get('error'),
+                'warning' => $request->session()->get('warning'),
+                'info' => $request->session()->get('info'),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
