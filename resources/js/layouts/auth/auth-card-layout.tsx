@@ -1,5 +1,4 @@
 import AppLogoIcon from '@/components/app-logo-icon';
-import { home } from '@/routes';
 import { Link } from '@inertiajs/react';
 import {
     Box,
@@ -32,7 +31,7 @@ export default function AuthCardLayout({
         >
             <Box sx={{ width: '100%', maxWidth: 520 }}>
                 <Link
-                    href={home()}
+                    href="/"
                     className="flex items-center gap-2 self-center font-medium justify-center mb-4"
                 >
                     <AppLogoIcon className="size-10 fill-current text-black dark:text-white" />

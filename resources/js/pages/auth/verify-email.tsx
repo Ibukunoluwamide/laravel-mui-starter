@@ -1,7 +1,6 @@
 // Components
 import TextLink from '@/components/text-link';
 import AuthLayout from '@/layouts/auth-layout';
-import { logout } from '@/routes';
 import { Head, useForm } from '@inertiajs/react';
 import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 
@@ -43,7 +42,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
                     </Button>
 
                     <Typography variant="body2" color="text.secondary">
-                        <TextLink href={logout()} className="mx-auto">
+                        <TextLink href="/logout" className="mx-auto">
                             Log out
                         </TextLink>
                     </Typography>

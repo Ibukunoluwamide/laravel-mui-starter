@@ -1,5 +1,4 @@
 // Components
-import { login } from '@/routes';
 import { Head, useForm } from '@inertiajs/react';
 import {
     Button,
@@ -77,7 +76,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                     variant="body2"
                     color="text.secondary"
                 >
-                    Or, return to <TextLink href={login()}>log in</TextLink>
+                    Or, return to <TextLink href="/login">log in</TextLink>
                 </Typography>
             </Stack>
         </AuthLayout>

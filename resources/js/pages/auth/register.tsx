@@ -14,8 +14,6 @@ import {
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
 
-// import { store } from '@/routes/register';
-import { login } from '@/routes';
 
 import CustomAuthLayout from '@/layouts/custom-auth-layout';
 import { FacebookIcon, GoogleIcon } from './components/custom-icons';
@@ -144,7 +142,7 @@ export default function Register() {
 
                         <Typography sx={{ textAlign: 'center' }}>
                             Already have an account?{' '}
-                            <TextLink href={login()}>Sign in</TextLink>
+                            <TextLink href="/login">Sign in</TextLink>
                         </Typography>
                     </Stack>
                 </form>
