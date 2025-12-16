@@ -2,7 +2,6 @@ import { Head, useForm } from '@inertiajs/react';
 import {
     Button,
     Checkbox,
-    Divider,
     FormControl,
     FormControlLabel,
     FormLabel,
@@ -16,7 +15,6 @@ import TextLink from '@/components/text-link';
 
 
 import CustomAuthLayout from '@/layouts/custom-auth-layout';
-import { FacebookIcon, GoogleIcon } from './components/custom-icons';
 
 // -------------------------
 // Main Component
@@ -36,7 +34,7 @@ export default function Register() {
     return (
         <>
             <Head title="Register" />
-            <CustomAuthLayout title="Create an account">
+            <CustomAuthLayout title="Create an account" googleAuth>
                 {/* Inertia Form */}
                 <form onSubmit={submit} className="w-full">
                     <Stack spacing={2}>
@@ -147,28 +145,7 @@ export default function Register() {
                     </Stack>
                 </form>
 
-                <Divider>or</Divider>
-
-                {/* Optional Social Signup */}
-                <Stack spacing={2}>
-                    <Button
-                        fullWidth
-                        variant="outlined"
-                        startIcon={<GoogleIcon />}
-                        onClick={() => alert('Google auth not implemented')}
-                    >
-                        Sign up with Google
-                    </Button>
-
-                    <Button
-                        fullWidth
-                        variant="outlined"
-                        startIcon={<FacebookIcon />}
-                        onClick={() => alert('Facebook auth not implemented')}
-                    >
-                        Sign up with Facebook
-                    </Button>
-                </Stack>
+                      
             </CustomAuthLayout>
         </>
     );

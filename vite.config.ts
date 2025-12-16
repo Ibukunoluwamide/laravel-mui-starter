@@ -23,5 +23,8 @@ export default defineConfig({
     optimizeDeps: {
         force: true,
     },
+    build: {
+    chunkSizeWarningLimit: 1000, // KB
+  }
 
 });

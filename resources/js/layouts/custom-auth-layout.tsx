@@ -1,12 +1,17 @@
 import AppLogoIcon from '@/components/app-logo-icon';
 import FlashHandler from '@/components/flash-handler';
 import {
+    Button,
     CssBaseline,
+    Divider,
     Card as MuiCard,
     Stack,
     styled,
     Typography,
 } from '@mui/material';
+
+import { FacebookIcon, GoogleIcon } from './components/custom-icons';
+
 // -------------------------
 // Styled Components
 // -------------------------
@@ -36,14 +41,16 @@ export default function CustomAuthLayout({
     children,
     title,
     description,
+    googleAuth,
 }: {
     children: React.ReactNode;
     title: string;
     description?: string;
+    googleAuth?: boolean;
 }) {
     return (
         <>
-              <FlashHandler />
+            <FlashHandler />
 
             <CssBaseline />
 
@@ -72,6 +79,30 @@ export default function CustomAuthLayout({
                     )}
 
                     {children}
+                    {googleAuth && (
+                        <>
+                            <Divider>or</Divider>
+
+                            <Stack spacing={2}>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    startIcon={<GoogleIcon />}
+                                >
+                                    Sign in with Google
+                                </Button>
+
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    startIcon={<FacebookIcon />}
+                                >
+                                    Sign in with Facebook
+                                </Button>
+                             
+                            </Stack>
+                        </>
+                    )}
                 </Card>
             </SignInContainer>
         </>

@@ -1,9 +1,8 @@
-import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import {
+    Box,
     Button,
     Checkbox,
-    Divider,
     FormControl,
     FormControlLabel,
     FormLabel,
@@ -11,15 +10,14 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+import React from 'react';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
-import { GoogleIcon, FacebookIcon } from './components/custom-icons';
 import CustomAuthLayout from '@/layouts/custom-auth-layout';
 
 export default function Login({
     canResetPassword,
-    canRegister,
 }: {
     canResetPassword: boolean;
     canRegister: boolean;
@@ -32,14 +30,14 @@ export default function Login({
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-          post('/login');
+        post('/login');
     };
 
     return (
         <>
             <Head title="Log in" />
 
-            <CustomAuthLayout title="Login">
+            <CustomAuthLayout title="Login" googleAuth>
                 <form onSubmit={submit} className="w-full">
                     <Stack spacing={1}>
                         <FormControl fullWidth>
@@ -48,13 +46,17 @@ export default function Login({
                                 id="email"
                                 type="email"
                                 value={data.email}
-                                onChange={(e) => setData('email', e.target.value)}
+                                onChange={(e) =>
+                                    setData('email', e.target.value)
+                                }
                                 placeholder="your@email.com"
                                 autoComplete="email"
                                 autoFocus
                                 required
                                 error={Boolean(errors.email)}
-                                helperText={<InputError message={errors.email} />}
+                                helperText={
+                                    <InputError message={errors.email} />
+                                }
                             />
                         </FormControl>
 
@@ -64,15 +66,19 @@ export default function Login({
                                 id="password"
                                 type="password"
                                 value={data.password}
-                                onChange={(e) => setData('password', e.target.value)}
+                                onChange={(e) =>
+                                    setData('password', e.target.value)
+                                }
                                 placeholder="••••••"
                                 autoComplete="current-password"
                                 required
                                 error={Boolean(errors.password)}
-                                helperText={<InputError message={errors.password} />}
+                                helperText={
+                                    <InputError message={errors.password} />
+                                }
                             />
                         </FormControl>
-
+                       <Box sx={{display: 'flex', alignItems: "center", justifyContent: 'space-between'}}>
                         <FormControlLabel
                             control={
                                 <Checkbox
@@ -85,6 +91,16 @@ export default function Login({
                             label="Remember me"
                         />
 
+
+                        {canResetPassword && (
+                            <TextLink
+                                className="text-center"
+                                href="/forgot-password"
+                            >
+                                Forgot your password?
+                            </TextLink>
+                        )}
+                        </Box>
                         <Button
                             variant="contained"
                             type="submit"
@@ -94,40 +110,12 @@ export default function Login({
                             {processing ? 'Logging in...' : 'Log in'}
                         </Button>
 
-                        {canResetPassword && (
-                            <TextLink className="text-center" href="/forgot-password">
-                                Forgot your password?
-                            </TextLink>
-                        )}
-                    </Stack>
-                </form>
-
-                <Divider>or</Divider>
-
-                <Stack spacing={2}>
-                    <Button
-                        fullWidth
-                        variant="outlined"
-                        startIcon={<GoogleIcon />}
-                    >
-                        Sign in with Google
-                    </Button>
-
-                    <Button
-                        fullWidth
-                        variant="outlined"
-                        startIcon={<FacebookIcon />}
-                    >
-                        Sign in with Facebook
-                    </Button>
-
-                    {canRegister && (
                         <Typography textAlign="center">
                             Don&apos;t have an account?{' '}
                             <TextLink href="/register">Sign up</TextLink>
                         </Typography>
-                    )}
-                </Stack>
+                    </Stack>
+                </form>
             </CustomAuthLayout>
         </>
     );
