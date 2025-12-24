@@ -9,7 +9,6 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Toaster } from 'sonner';
-import { AppearanceProvider, initializeTheme } from './hooks/use-appearance';
 import AppThemeProvider from './theme/app-theme';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -26,12 +25,10 @@ createInertiaApp({
 
         root.render(
             <StrictMode>
-                <AppearanceProvider>
                     <AppThemeProvider>
                         <Toaster richColors position="top-right" />
                         <App {...props} />
                     </AppThemeProvider>
-                </AppearanceProvider>
             </StrictMode>,
         );
     },
@@ -40,5 +37,3 @@ createInertiaApp({
     },
 });
 
-// This will set light / dark mode on load...
-initializeTheme();

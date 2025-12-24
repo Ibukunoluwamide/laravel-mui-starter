@@ -9,6 +9,9 @@ import {
     Stack,
     TextField,
     Typography,
+    MenuItem,
+    Avatar,
+    Box,
 } from '@mui/material';
 
 import DeleteUser from '@/components/delete-user';
@@ -33,10 +36,13 @@ export default function Profile({
 }) {
     const { auth } = usePage<SharedData>().props;
 
-    const { data, setData, patch, processing, recentlySuccessful, errors } = useForm({
-        name: auth.user.name,
-        email: auth.user.email,
-    });
+    const { data, setData, patch, processing, recentlySuccessful, errors } =
+        useForm({
+            name: auth.user.name,
+            email: auth.user.email,
+            phone: auth.user.phone ?? '',
+            avatar: auth.user.avatar ?? '',
+        });
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -53,36 +59,61 @@ export default function Profile({
                 <Stack spacing={4}>
                     <HeadingSmall
                         title="Profile information"
-                        description="Update your name and email address"
+                        description="Update your personal details and preferences"
                     />
 
-                    <form onSubmit={submit} className="space-y-6">
+                    <form onSubmit={submit}>
                         <Stack spacing={3}>
+                            {/* Avatar */}
+                            <Stack direction="row" spacing={2} alignItems="center">
+                                <Avatar
+                                    src={data.avatar}
+                                    sx={{ width: 64, height: 64 }}
+                                />
+                                <TextField
+                                    label="Avatar URL"
+                                    fullWidth
+                                    value={data.avatar}
+                                    onChange={(e) =>
+                                        setData('avatar', e.target.value)
+                                    }
+                                    error={Boolean(errors.avatar)}
+                                    helperText={<InputError message={errors.avatar} />}
+                                />
+                            </Stack>
+
                             <TextField
-                                id="name"
                                 label="Name"
                                 value={data.name}
                                 onChange={(e) => setData('name', e.target.value)}
                                 required
                                 autoComplete="name"
-                                placeholder="Full name"
                                 error={Boolean(errors.name)}
                                 helperText={<InputError message={errors.name} />}
                             />
 
                             <TextField
-                                id="email"
-                                type="email"
                                 label="Email address"
+                                type="email"
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
                                 required
                                 autoComplete="username"
-                                placeholder="Email address"
                                 error={Boolean(errors.email)}
                                 helperText={<InputError message={errors.email} />}
                             />
 
+                            <TextField
+                                label="Phone"
+                                value={data.phone}
+                                onChange={(e) => setData('phone', e.target.value)}
+                                autoComplete="tel"
+                                error={Boolean(errors.phone)}
+                                helperText={<InputError message={errors.phone} />}
+                            />
+
+
+                            {/* Email verification */}
                             {mustVerifyEmail &&
                                 auth.user.email_verified_at === null && (
                                     <Alert severity="warning" variant="outlined">
@@ -92,20 +123,21 @@ export default function Profile({
                                         </Typography>
                                         <Button
                                             size="small"
-                                            component={Link as never}
-                                            href='/email/verification-notification'
+                                            component={Link}
+                                            href="/email/verification-notification"
                                             variant="contained"
                                         >
                                             Resend verification email
                                         </Button>
-                                        {status === 'verification-link-sent' && (
+                                        {status ===
+                                            'verification-link-sent' && (
                                             <Typography
                                                 variant="body2"
                                                 color="success.main"
                                                 sx={{ mt: 1 }}
                                             >
-                                                A new verification link has been sent
-                                                to your email address.
+                                                A new verification link has been
+                                                sent to your email address.
                                             </Typography>
                                         )}
                                     </Alert>
@@ -115,14 +147,16 @@ export default function Profile({
                                 <Button
                                     disabled={processing}
                                     variant="contained"
-                                    data-test="update-profile-button"
                                     type="submit"
                                 >
-                                    Save
+                                    Save changes
                                 </Button>
 
                                 <Fade in={recentlySuccessful}>
-                                    <Typography variant="body2" color="text.secondary">
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                    >
                                         Saved
                                     </Typography>
                                 </Fade>
@@ -131,7 +165,9 @@ export default function Profile({
                     </form>
                 </Stack>
 
-                <DeleteUser />
+                <Box mt={6}>
+                    <DeleteUser />
+                </Box>
             </SettingsLayout>
         </AppLayout>
     );

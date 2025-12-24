@@ -146,16 +146,7 @@ export function Sidebar({
             <Divider />
 
             <Stack spacing={1} px={2} pt={1}>
-                <Button
-                    startIcon={<Api />}
-                    variant="outlined"
-                    component={InertiaLink}
-                    href={apiTokensUrl}
-                    size="small"
-                    fullWidth
-                >
-                    API tokens
-                </Button>
+               
                 <Button
                     startIcon={<SupportAgent />}
                     variant="text"
@@ -165,10 +156,12 @@ export function Sidebar({
                     Contact support
                 </Button>
                 <Button
-                    startIcon={<Logout />}
-                    variant="text"
+                    component={Link}
                     href={logoutUrl}
+                    method="post"
+                    startIcon={<Logout />}
                     size="small"
+                    variant="outlined"
                 >
                     Logout
                 </Button>

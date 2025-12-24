@@ -1,16 +1,42 @@
+import { Box, Typography } from '@mui/material';
+import { Link } from '@inertiajs/react';
 import AppLogoIcon from './app-logo-icon';
 
 export default function AppLogo() {
-    return (
-        <>
-            <div className="flex aspect-square size-8 items-center justify-center rounded-md text-black">
-                <AppLogoIcon className="size-5 fill-current text-black" />
-            </div>
-            <div className="ml-1 grid flex-1 text-left text-sm">
-                <span className="mb-0.5 truncate leading-tight font-semibold text-black">
-                    Laravel Starter Kit
-                </span>
-            </div>
-        </>
-    );
+  return (
+    <Link href="/" style={{ textDecoration: 'none' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+          cursor: 'pointer',
+        }}
+      >
+        <Box
+          sx={{
+            width: 40,
+            height: 40,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 1,
+            bgcolor: 'primary.main',
+            color: 'white',
+          }}
+        >
+          <AppLogoIcon style={{ width: 24, height: 24, fill: 'currentColor' }} />
+        </Box>
+
+        <Typography
+          variant="subtitle1"
+          fontWeight={700}
+          color="text.primary"
+          noWrap
+        >
+          Laravel MUI Starter
+        </Typography>
+      </Box>
+    </Link>
+  );
 }

@@ -14,7 +14,7 @@ export const adminNav = [
   { title: "Dashboard", href: "/admin/dashboard", icon: DashboardOutlined },
   { title: "Users", href: "/admin/users", icon: PeopleAltOutlined },
   { title: "Billing", href: "/admin/billing", icon: CreditCard },
-  { title: "System Settings", href: "/admin/settings", icon: Settings },
+  { title: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
 export const userNav = [

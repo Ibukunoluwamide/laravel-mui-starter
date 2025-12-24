@@ -1,13 +1,12 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import {
     DataGrid,
     GridActionsCellItem,
     GridColDef,
     GridPaginationModel,
     GridSortModel,
-    gridClasses,
 } from '@mui/x-data-grid';
 import * as React from 'react';
 import DataTableToolbar from './DataTableToolbar';
@@ -21,27 +20,53 @@ interface DataTableProps<T> {
     defaultPageSize?: number;
     onRowClick?: (row: T) => void;
     actionButton?: boolean;
+    onEdit?: (row: T) => void;
+    onDelete?: (row: T) => void;
 }
 
-const actionsColumn: GridColDef = {
+const buildActionsColumn = <T extends { id: number | string }>({
+    onEdit,
+    onDelete,
+}: {
+    onEdit?: (row: T) => void;
+    onDelete?: (row: T) => void;
+}): GridColDef => ({
     field: 'actions',
     type: 'actions',
+    headerName: 'Actions',
     width: 120,
-    getActions: ({ row }) => [
-        <GridActionsCellItem
-            key="edit"
-            icon={<EditIcon />}
-            label="Edit"
-            onClick={() => alert(`Edit ${row.name}`)}
-        />,
-        <GridActionsCellItem
-            key="delete"
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={() => alert(`Delete ${row.name}`)}
-        />,
-    ],
-};
+    getActions: (params) => {
+        const row = params.row as T;
+
+        const actions: React.JSX.Element[] = [];
+
+        if (onEdit) {
+            actions.push(
+                <GridActionsCellItem
+                    key="edit"
+                    icon={<EditIcon />}
+                    label="Edit"
+                    onClick={() => onEdit(row)}
+                />
+            );
+        }
+
+        if (onDelete) {
+            actions.push(
+                <GridActionsCellItem
+                    key="delete"
+                    icon={<DeleteIcon />}
+                    label="Delete"
+                    onClick={() => onDelete(row)}
+                />
+            );
+        }
+
+        return actions;
+    },
+});
+
+
 
 export default function Table<T extends { id: number | string }>({
     title = 'Table',
@@ -51,7 +76,9 @@ export default function Table<T extends { id: number | string }>({
     pageSizeOptions = [5, 10, 25],
     defaultPageSize = 10,
     onRowClick,
-    actionButton = false,
+    actionButton = true,
+    onEdit,
+    onDelete,
 }: DataTableProps<T>) {
     const [paginationModel, setPaginationModel] =
         React.useState<GridPaginationModel>({
@@ -62,11 +89,14 @@ export default function Table<T extends { id: number | string }>({
     const [sortModel, setSortModel] = React.useState<GridSortModel>([]);
     const [search, setSearch] = React.useState('');
 
-    const finalColumns = React.useMemo<GridColDef[]>(() => {
+    const finalColumns = React.useMemo(() => {
         if (!actionButton) return columns;
 
-        return [...columns, actionsColumn];
-    }, [columns, actionButton]);
+        return [
+            ...columns,
+            buildActionsColumn<T>({ onEdit, onDelete }),
+        ];
+    }, [columns, actionButton, onEdit, onDelete]);
 
     return (
         <Paper
