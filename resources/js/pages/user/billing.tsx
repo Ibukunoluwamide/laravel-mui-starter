@@ -1,4 +1,3 @@
-import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import {
@@ -10,6 +9,7 @@ import {
     Typography,
 } from '@mui/material';
 import { CreditCard, ReceiptLong } from '@mui/icons-material';
+import { UserShell } from '@/components/layout/user-shell';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'User', href: '/user' },
@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function UserBilling() {
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <UserShell breadcrumbs={breadcrumbs}>
             <Head title="User | Billing" />
             <Stack>
                 <Grid container spacing={2}>
@@ -56,7 +56,7 @@ export default function UserBilling() {
                     </Grid>
                 </Grid>
             </Stack>
-        </AppLayout>
+        </UserShell>
     );
 }
 

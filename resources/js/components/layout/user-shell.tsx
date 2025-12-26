@@ -1,8 +1,8 @@
-import { DashboardFrame } from '@/components/layout/dashboard-frame';
 import { SharedData, type BreadcrumbItem } from '@/types';
 import { usePage } from '@inertiajs/react';
-import FlashHandler from './flash-handler';
-import LoaderOverlay from './loader-overlay';
+import FlashHandler from '../flash-handler';
+import LoaderOverlay from '../loader-overlay';
+import AppLayout from '@/layouts/app-layout';
 
 type UserShellProps = {
     children: React.ReactNode;
@@ -14,11 +14,11 @@ export function UserShell({ children, breadcrumbs = [] }: UserShellProps) {
     const auth = props.auth ?? { guard: 'guest', user: null, admin: null };
     const navFilter = auth?.user ? 'user' : 'all';
     return (
-        <DashboardFrame breadcrumbs={breadcrumbs} navFilter={navFilter}>
+        <AppLayout breadcrumbs={breadcrumbs} navFilter={navFilter}>
             <LoaderOverlay />
             <FlashHandler />
 
             {children}
-        </DashboardFrame>
+        </AppLayout>
     );
 }

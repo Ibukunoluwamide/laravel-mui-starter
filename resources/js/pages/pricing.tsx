@@ -1,4 +1,4 @@
-import { UserShell } from '@/components/user-shell';
+import { UserShell } from '@/components/layout/user-shell';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { CheckCircle } from '@mui/icons-material';

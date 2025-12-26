@@ -1,8 +1,8 @@
-import { DashboardFrame } from '@/components/layout/dashboard-frame';
 import { SharedData, type BreadcrumbItem } from '@/types';
 import { usePage } from '@inertiajs/react';
-import FlashHandler from './flash-handler';
-import LoaderOverlay from './loader-overlay';
+import FlashHandler from '../flash-handler';
+import LoaderOverlay from '../loader-overlay';
+import AppLayout from '@/layouts/app-layout';
 
 type AdminShellProps = {
     breadcrumbs?: BreadcrumbItem[];
@@ -15,10 +15,10 @@ export function AdminShell({ children, breadcrumbs = [] }: AdminShellProps) {
     const navFilter = auth?.admin ? 'admin' : 'all';
 
     return (
-        <DashboardFrame breadcrumbs={breadcrumbs} navFilter={navFilter}>
+        <AppLayout breadcrumbs={breadcrumbs} navFilter={navFilter}>
             <LoaderOverlay />
             <FlashHandler />
             {children}
-        </DashboardFrame>
+        </AppLayout>
     );
 }

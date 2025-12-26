@@ -1,4 +1,4 @@
-import AppLayout from '@/layouts/app-layout';
+import { UserShell } from '@/components/layout/user-shell';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Card, CardContent, Stack, Switch, Typography, FormControlLabel } from '@mui/material';
@@ -10,7 +10,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function UserNotifications() {
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <UserShell breadcrumbs={breadcrumbs}>
             <Head title="User | Notifications" />
             <Card variant="outlined">
                 <CardContent>
@@ -36,7 +36,7 @@ export default function UserNotifications() {
                     </Stack>
                 </CardContent>
             </Card>
-        </AppLayout>
+        </UserShell>
     );
 }
 

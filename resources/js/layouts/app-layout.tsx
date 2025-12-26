@@ -1,14 +1,28 @@
-import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
-import { type BreadcrumbItem } from '@/types';
-import { type ReactNode } from 'react';
 
-interface AppLayoutProps {
-    children: ReactNode;
+import { LayoutNav } from '@/components/layout/layout-nav';
+import { BreadcrumbItem } from '@/types';
+
+type NavFilter = 'all' | 'admin' | 'user' | 'public';
+
+export default function AppLayout({
+    children,
+    breadcrumbs = [],
+    navFilter = 'all',
+}: {
+    children: React.ReactNode;
     breadcrumbs?: BreadcrumbItem[];
-}
+    navFilter?: NavFilter;
+}) {
+  
 
-export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
-    <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
+    return (
+     <>
+     <LayoutNav
+        breadcrumbs={breadcrumbs}
+        navFilter={navFilter}
+      >
         {children}
-    </AppLayoutTemplate>
-);
+      </LayoutNav>
+     </>
+    );
+}

@@ -1,4 +1,3 @@
-import { UserShell } from '@/components/user-shell';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import {
@@ -17,6 +16,7 @@ import {
     ReceiptLong,
     ArrowForward,
 } from '@mui/icons-material';
+import { UserShell } from '@/components/layout/user-shell';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'User', href: '/user' },

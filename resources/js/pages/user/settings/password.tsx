@@ -1,5 +1,4 @@
 import InputError from '@/components/input-error';
-import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
@@ -7,6 +6,7 @@ import { Button, Fade, Stack, TextField, Typography } from '@mui/material';
 import { useRef } from 'react';
 
 import HeadingSmall from '@/components/heading-small';
+import { UserShell } from '@/components/layout/user-shell';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -45,7 +45,7 @@ export default function Password() {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <UserShell breadcrumbs={breadcrumbs}>
             <Head title="Password settings" />
 
             <SettingsLayout>
@@ -132,6 +132,6 @@ export default function Password() {
                     </form>
                 </div>
             </SettingsLayout>
-        </AppLayout>
+        </UserShell>
     );
 }

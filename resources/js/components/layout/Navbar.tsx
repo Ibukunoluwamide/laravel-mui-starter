@@ -13,9 +13,8 @@ import {
     Typography,
 } from '@mui/material';
 import { Breadcrumbs } from '../breadcrumbs';
-import OptionsMenu from './OptionsMenu';
 
-export function Navbar({ breadcrumbs, mobileOpen, setMobileOpen, accountType, account, logoutUrl }) {
+export function Navbar({ breadcrumbs, mobileOpen, setMobileOpen, accountType}) {
     return (
         <AppBar
             position="fixed"

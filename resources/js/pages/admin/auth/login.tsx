@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 
 import InputError from '@/components/input-error';
-import TextLink from '@/components/text-link';
 
 
 import CustomAuthLayout from '@/layouts/custom-auth-layout';
@@ -18,13 +17,7 @@ import CustomAuthLayout from '@/layouts/custom-auth-layout';
 // -------------------------
 // Main Component
 // -------------------------
-export default function Login({
-    canResetPassword,
-}: {
-    status?: string;
-    canResetPassword: boolean;
-    canRegister: boolean;
-}) {
+export default function Login() {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
         password: '',

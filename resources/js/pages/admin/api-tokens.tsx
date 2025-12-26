@@ -1,4 +1,4 @@
-import { AdminShell } from '@/components/admin-shell';
+import { AdminShell } from '@/components/layout/admin-shell';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import {

@@ -9,7 +9,6 @@ import {
     Stack,
     TextField,
     Typography,
-    MenuItem,
     Avatar,
     Box,
 } from '@mui/material';
@@ -17,8 +16,8 @@ import {
 import DeleteUser from '@/components/delete-user';
 import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
-import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import { UserShell } from '@/components/layout/user-shell';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -52,7 +51,7 @@ export default function Profile({
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <UserShell breadcrumbs={breadcrumbs}>
             <Head title="Profile settings" />
 
             <SettingsLayout>
@@ -169,6 +168,6 @@ export default function Profile({
                     <DeleteUser />
                 </Box>
             </SettingsLayout>
-        </AppLayout>
+        </UserShell>
     );
 }

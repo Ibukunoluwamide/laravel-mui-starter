@@ -1,8 +1,8 @@
 
 import { Box } from '@mui/material';
 import { usePage } from '@inertiajs/react';
-import { Sidebar } from './Sidebar';
-import { Navbar } from './Navbar';
+import { Sidebar } from './side-bar';
+import { Navbar } from './navbar';
 import { BreadcrumbItem, SharedData } from '@/types';
 import { useMemo, useState } from 'react';
 import { adminNav, publicNav, userNav } from '../constants/navigation';
@@ -86,7 +86,7 @@ export function LayoutNav({
                         display: 'flex',
                         flexDirection: 'column',
                         flexGrow: 1,
-                        minWidth: 0, // 🚨 VERY IMPORTANT FOR DATAGRID
+                        minWidth: 0, 
                     }}
                 >
                     {/* -------------- NAVBAR ALWAYS VISIBLE -------------- */}
@@ -94,9 +94,7 @@ export function LayoutNav({
                         breadcrumbs={breadcrumbs}
                         mobileOpen={mobileOpen}
                         setMobileOpen={setMobileOpen}
-                        account={account}
                         accountType={resolvedFilter}
-                        logoutUrl={logoutUrl}
                     />
 
                     {/* -------------- MAIN CONTENT -------------- */}
@@ -107,7 +105,7 @@ export function LayoutNav({
                             p: { xs: 2, md: 3 },
                             mt: 14,
                             width: '100%',
-                            minWidth: 0, // 🚨 REQUIRED
+                            minWidth: 0, 
                             overflowX: 'auto',
                         }}
                     >

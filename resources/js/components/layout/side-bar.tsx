@@ -2,7 +2,6 @@ import { isSameUrl, resolveUrl } from '@/lib/utils';
 import { BreadcrumbItem, NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
-    Api,
     Logout,
     SupportAgent,
     ViewSidebar,
@@ -45,7 +44,6 @@ export function Sidebar({
     navItems,
     account,
     url,
-    apiTokensUrl,
     mobileOpen,
     setMobileOpen,
     logoutUrl,

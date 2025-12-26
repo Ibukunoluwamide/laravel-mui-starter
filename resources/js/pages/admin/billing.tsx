@@ -1,4 +1,3 @@
-import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import {
@@ -11,7 +10,7 @@ import {
     Button,
 } from '@mui/material';
 import { CreditScore, ReceiptLong } from '@mui/icons-material';
-import { AdminShell } from '@/components/admin-shell';
+import { AdminShell } from '@/components/layout/admin-shell';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Admin', href: '/admin' },

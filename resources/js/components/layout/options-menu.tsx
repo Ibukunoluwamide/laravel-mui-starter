@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
-import MenuButton from './MenuButton';
+import MenuButton from './menu-button';
 
 const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',

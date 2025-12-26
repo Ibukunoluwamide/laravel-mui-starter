@@ -1,4 +1,4 @@
-import { AdminShell } from '@/components/admin-shell';
+import { AdminShell } from '@/components/layout/admin-shell';
 import { Head, useForm } from '@inertiajs/react';
 import {
     Box,

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { AdminShell } from '@/components/admin-shell';
+import { AdminShell } from '@/components/layout/admin-shell';
 import UserForm from './_form';
 import { BreadcrumbItem } from '@/types';
 

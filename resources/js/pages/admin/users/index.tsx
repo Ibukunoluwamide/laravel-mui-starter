@@ -1,7 +1,7 @@
 import { GridColDef } from '@mui/x-data-grid';
 import { Box, Button, Stack, Chip, Avatar } from '@mui/material';
 import * as React from 'react';
-import { AdminShell } from '@/components/admin-shell';
+import { AdminShell } from '@/components/layout/admin-shell';
 import Table from '@/components/table';
 import { BreadcrumbItem } from '@/types';
 import { router } from '@inertiajs/react';
